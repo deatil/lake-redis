@@ -5,7 +5,7 @@ namespace Lake\Redis\Data;
 /**
  * 队列操作命令
  */
-class List
+class Lists
 {
     private $redis;
     
