@@ -13,7 +13,6 @@ class Redis
 {
     /**
      * 实例化的对象,单例模式.
-     * @var \iphp\db\Redis
      */
     private static $instance = [];
     
@@ -23,7 +22,6 @@ class Redis
      * 如果连接超时，将会重新建立一个连接
      * @param array $config
      * @param int $dbId
-     * @return \iphp\db\Redis
      */
     public static function getInstance($config, $attr = [])
     {
@@ -34,7 +32,7 @@ class Redis
             $attr['db_id'] = $dbId;
         }
         
-        $attr['db_id'] = $attr['db_id'] ? $attr['db_id'] : 0;
+        $attr['db_id'] = $attr['db_id'] ? intval($attr['db_id']) : 0;
         
         $k = md5(implode('', $config).$attr['db_id']);
         if (!isset(static::$instance[$k]) 

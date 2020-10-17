@@ -157,6 +157,19 @@ class Connect
     {
         return $this->redis->ping();
     }
+
+    /**
+     * 运行redis命令.
+     *
+     * @param string $command
+     * @return mixed
+     */
+    public function execute($command)
+    {
+        $command = explode(' ', $command);
+
+        return $this->redis->executeRaw($command);
+    }
     
     /**
      * 返回当前库状态
@@ -192,6 +205,26 @@ class Connect
     }
     
     /**
+     * 返回key所存储值的类型
+     * @param string $key
+     * @return string
+     */
+    public function type($key)
+    {
+        return $this->redis->type($key);
+    }
+    
+    /**
+     * 序列化给定的key，并返回被序列化的值
+     * @param string $key
+     * @return string
+     */
+    public function dump($key)
+    {
+        return $this->redis->dump($key);
+    }
+    
+    /**
      * 返回key,支持*多个字符，?一个字符
      * 只有*　表示全部
      * @param string $key
@@ -200,6 +233,16 @@ class Connect
     public function keys($key)
     {
         return $this->redis->keys($key);
+    }
+    
+    /**
+     * 返回key数据
+     * @param string $key
+     * @return array|string
+     */
+    public function get($key)
+    {
+        return $this->redis->get($key);
     }
     
     /**
@@ -218,6 +261,45 @@ class Connect
     public function exists($key)
     {
         return $this->redis->exists($key);
+    }
+    
+    /**
+     * 修改key名称
+     * @param string $oldKeyName
+     * @param string $newKeyName
+     */
+    public function rename($oldKeyName, $newKeyName)
+    {
+        return $this->redis->rename($oldKeyName, $newKeyName);
+    }
+    
+    /**
+     * 仅当 newKeyName 不存在时 修改key名称
+     * @param string $oldKeyName
+     * @param string $newKeyName
+     */
+    public function renamenx($oldKeyName, $newKeyName)
+    {
+        return $this->redis->renamenx($oldKeyName, $newKeyName);
+    }
+    
+    /**
+     * 将 keyName 移动到给定数据库中
+     * @param string $keyName
+     * @param string $destinationDatabase
+     */
+    public function move($keyName, $destinationDatabase)
+    {
+        return $this->redis->move($keyName, $destinationDatabase);
+    }
+    
+    /**
+     * 移除KEY的过期时间
+     * @param unknown $keyName
+     */
+    public function persist($keyName)
+    {
+        return $this->redis->persist($keyName);
     }
     
     /**
